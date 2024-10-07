@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrossel</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+      .carrossel {
+    position: relative;
+    max-width: 500px;
+    max-height:250px;
+    margin: auto;
+    overflow: hidden; /* coloca uma imagem atrás da outra no carrossel */
+    border-radius: 10px;
+}
+
+/* Estilo da faixa do carrossel */
+.carrossel-seg {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Cada item do carrossel */
+.carrossel-item {
+    min-width: 100%; /* Cada item ocupa 100% da largura do container */
+}
+
+/* Ajuste para as imagens ocuparem todo o container */
+.carrossel-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* alinhar a imagem dentro do carrossel */
+}
+
+.bolinhas {
+    display: flex;
+    justify-content: center; /* Centraliza as bolinhas horinzontalmente */
+    margin-top: 20px; /* Espaço entre a imagem e as bolinhas */
+}
+
+.bolinha {
+    width: 12px; /* Largura da bolinha */
+    height: 12px; /* Altura da bolinha */
+    border-radius: 50%; /* Circulo perfeito */
+    background-color: rgba(0, 0, 0 , 0.5); /* Cor da bolinha */
+
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ; /* Transição suave ao passar o mouse */
+}
+
+.bolinha:hover {
+    background-color: rgba(0, 0, 0 , 0.8); /* Cor mais escura ao passar o mouse */
+}
+
+    </style>
+</head>
+<body>
+
+
+
+    <div class="carrossel">
+        <div class="carrossel-seg">
+            <div class="carrossel-item">
+              <img src="img/image.png" alt="Imagem 1">
+            </div>
+            <div class="carrossel-item">
+              <img src="img/coliseu.webp" alt="Imagem 2">
+            </div>
+            <div class="carrossel-item">
+              <img src="img/mahal.webp" alt="Imagem 3">
+            </div>
+        </div>
+    </div>
+  <!-- Bolinhas de navegação -->
+      <div class="bolinhas">
+        <span class="bolinha"></span>
+        <span class="bolinha"></span>
+        <span class="bolinha"></span>
+      </div>
+      <script src="index.js">
+
+const bolinhas = document.querySelectorAll('.bolinha');
+const carroselSeg = document.querySelector('.carrossel-seg');
+let index = 0; // index é a posição de um elemento.
+// Atualiza o carrossel ao clicar na bolinha
+bolinhas.forEach((bolinha, i) => { // forEach executa uma função fornecida uma vez para cada elemento.
+  bolinha.addEventListener('click', () => {
+    index = i; // i representa o elemento atual guardado dentro da bolinha.
+    atualizarCarrossel();
+  });
+});
+// Função para atualizar a imagem e as bolinhas ativas
+function atualizarCarrossel() {
+  // Atualiza a posição do carrossel
+  carroselSeg.style.transform = `translateX(-${index * 100}%)`; // translateX move um elemento na horinzontal, multiplicando o index por 100, você está calculando quantos por cento o elemento deve ser deslocado para a esquerda.
+
+  // Atualiza as bolinhas ativas
+  bolinhas.forEach(b => b.classList.remove('ativa'));
+  bolinhas[index].classList.add('ativa');
+}
+      </script>
+</body>
+</html>
